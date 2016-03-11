@@ -1,12 +1,13 @@
 <?php
 
 /**
- * ������־
+ * 调试日志
  * Class Log_Shark 2016-03-07
  */
 
 class Zxx_log{
 
+	private static $_enable = true;
     private static $_log = '';
 
     public static function log($log=null){
@@ -14,12 +15,21 @@ class Zxx_log{
         {
             return $GLOBALS['debug_zxx'];
         }
+		elseif(false === $log)//关闭记录到内存中
+		{
+			self::$_enable = false;
+		}		
         else{
             $debug_trace = debug_backtrace();
+			
             $log = '#file:'.$debug_trace[0]['file'].$debug_trace[0]['line'].'#<br/>'.
                 '#time:'.date('Y-m-d H:i:s').'#<br/>'.
                 '#log:'.$log.'#<br/>';
-            self::$_log .= $log;
+			
+			if(self::$_enable)
+			{				
+				self::$_log .= $log;
+			}				
             return $log;
         }
     }
@@ -40,3 +50,10 @@ class Zxx_log{
     }
 }
 Zxx_log::register();
+
+if($_GET["clean"] == 1)
+{
+	Zxx_log::clean();
+}
+
+echo "Zxx_log!";
