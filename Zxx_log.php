@@ -10,15 +10,18 @@ class Zxx_log{
 	private static $_enable = true;
     private static $_log = '';
 
+	/**
+	* $log 可以是true，false或者string类型
+	*/
     public static function log($log=null){
         if(null === $log)
         {
             return $GLOBALS['debug_zxx'];
         }
-		elseif(false === $log)//关闭记录到内存中
+		elseif(is_bool($log))//关闭记录到内存中
 		{
-			self::$_enable = false;
-		}		
+			self::$_enable = $log;
+		}
         else{
             $debug_trace = debug_backtrace();
 			

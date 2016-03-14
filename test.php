@@ -17,3 +17,7 @@ foreach($arr as $k=>$v){
 <select name="select">
 <?php echo $str?>
 </select>
+
+<?php 
+$arr = array(1,2,3);
+var_dump(array_chunk($arr,4));
