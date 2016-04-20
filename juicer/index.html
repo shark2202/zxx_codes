@@ -1,0 +1,76 @@
+<script language="javascript" src="juicer-min.js"></script>
+
+<script type="text/juicer" id="sub_tpl">
+	自摸版的数据${sub_data}
+</script>
+
+<script type="text/juicer" id="sub_tpl2">
+	子摸版2222222的数据${sub_data22222}
+</script>
+
+<script id="tpl" type="text/template">
+    <ul>
+    	{#这是一个循环的，index是从0开始的}
+        {@each list as it,index}{#这是注释的}
+            <li>${it.name} (index: ${index})</li>
+        }
+        {@/each}
+        {#下面也是一个循环的}
+        {@each blah as it}
+            <li>
+                num: ${it.num} <br />
+                {@if it.num==3}
+                    {@each it.inner as it2}
+                        ${it2.time} <br />
+                    {@/each}
+                {@/if}
+            </li>
+        {@/each}
+        {#下面是一个条件}
+        {@if test.test.test=="ok"}
+        ok.ok.ok
+        {@else}
+        else 的部分了
+        {@/if}
+    </ul>
+    <div>
+    	{#模板嵌套的，使用ID定位的+加上数据}
+    	{@include "#sub_tpl",sub_data}
+    	<br/>
+    	母模板的数据是 111111 等于 ${sub_data.sub_data}
+    </div>
+    <div>
+    	{@include sub_tpl2,sub_data2}
+    </div>
+</script>
+
+
+<div id="show_div123">
+</div>
+
+<script type="text/javascript">
+	var data = {
+    list: [
+        {name:' guokai', show: true},
+        {name:' benben', show: false},
+        {name:' dierbaby', show: true}
+    ],
+    blah: [
+        {num: 1},
+        {num: 2},
+        {num: 3, inner:[
+            {'time': '15:00'},
+            {'time': '16:00'},
+            {'time': '17:00'},
+            {'time': '18:00'}
+        ]},
+        {num: 4}
+    ],
+    test:{test:{test:"ok11"}},
+    sub_data:{sub_data:111111}
+};
+var tpl = document.getElementById('tpl').innerHTML;//console.log(tpl);
+var html = juicer(tpl, data);//console.log(html);	
+
+document.getElementById("show_div123").innerHTML = html;
+</script>
