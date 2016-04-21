@@ -23,7 +23,9 @@ class Zxx_log{
 			self::$_enable = $log;
 		}
         else{
-            $debug_trace = debug_backtrace();
+            $debug_trace = debug_backtrace();//获取追踪信息
+            echo "<pre>";
+            var_dump($debug_trace);
 			
             $log = '#file:'.$debug_trace[0]['file'].$debug_trace[0]['line'].'#<br/>'.
                 '#time:'.date('Y-m-d H:i:s').'#<br/>'.
@@ -54,7 +56,8 @@ class Zxx_log{
 }
 Zxx_log::register();
 
-if($_GET["clean"] == 1)
+if(isset($_GET["clean"]) && 
+    $_GET["clean"] == 1)
 {
 	Zxx_log::clean();
 }
