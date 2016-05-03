@@ -1,5 +1,8 @@
 <?php
 
+var_dump(10 > 9*1.2);
+exit;
+
 $arr = array('上海','北京','深圳');
 $current = 2;
 $str = "";
